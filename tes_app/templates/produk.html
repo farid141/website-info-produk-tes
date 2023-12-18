@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1>List Produk</h1>
+{% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-warning" role="alert">
+        {{message}}
+    </div>
+    {% endfor %}
+{% endif %}
+
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Nama Produk</th>
+            <th scope="col">Harga</th>
+            <th scope="col">Kategori</th>
+            <th scope="col">Status</th>
+            <th scope="col">Aksi</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for p in produk %}
+        <tr>
+            <td scope="row">{{p.id_produk}}</td>
+            <td>{{p.nama_produk}}</td>
+            <td>{{p.harga}}</td>
+            <td>{{p.kategori.nama_kategori}}</td>
+            <td>{{p.status.nama_status}}</td>
+            <td>
+                <a href={% url 'update_produk' p.id_produk%} class="btn btn-warning">Update</a>
+
+                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteConfirmationModal{{ p.id_produk }}">
+                    Delete
+                </button>
+
+                <!-- Delete Confirmation Modal -->
+                <div class="modal fade" id="deleteConfirmationModal{{ p.id_produk }}" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="deleteConfirmationModalLabel">Delete Confirmation</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Are you sure you want to delete this item?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                <a href="{% url 'delete_produk' p.id_produk %}" class="btn btn-danger">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

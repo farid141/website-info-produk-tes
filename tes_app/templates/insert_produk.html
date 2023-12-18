@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>INSERT PRODUK</h1>
+<form method="post" action="{% url "insert_produk" %}">
+    {% csrf_token %}
+
+    {{form.as_p}}
+    <button type="submit" class="btn btn-success">
+        Insert Produk
+    </button>
+</form>
+{% endblock content %}
