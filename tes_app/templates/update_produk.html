@@ -1,12 +1,67 @@
 {% extends "base.html" %}
 {% block content %}
 <h1>UPDATE PRODUK</h1>
-<form method="post">
+{% comment %} <form method="POST" action="{% url 'update_produk_api' produk_id %}" enctype="application/json">
     {% csrf_token %}
-
     {{form.as_p}}
+    <input type="hidden" name="_method" value="PUT" />
     <button type="submit" class="btn btn-success">
         Update Produk
     </button>
+</form> {% endcomment %}
+<form method="GET" action="{% url 'update_produk_api' produk_id %}" enctype="application/json">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="hidden" name="_method" value="PUT" />
+    <button type="submit" class="btn btn-success">
+        Update Produ
+    </button>
 </form>
+{% comment %} <script>
+    function updateProduk() {
+        var form = document.getElementById('updateForm');
+        var formData = new FormData(form);
+        
+        fetch(form.action, {
+            method: 'PUT',
+            body: JSON.stringify(Object.fromEntries(formData)),
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': formData.get('csrfmiddlewaretoken')
+            },
+            credentials: 'same-origin'
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return respons e.json();
+        })
+        .then(data => {
+            console.log(data);
+            // Handle successful response if needed
+        })
+        .catch(error => {
+            console.error('There was a problem with the fetch operation:', error);
+        });
+    }
+</script> {% endcomment %}
+
+{% comment %} <script>
+    const form = document.querySelector('your-form-selector');
+    const formData = new FormData(form);
+    
+    fetch(form.action, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': {% csrf_token %},  // Include CSRF token if needed
+        },
+        body: JSON.stringify(Object.fromEntries(formData)),
+    })
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(error => console.error('Error:', error));
+    
+</script> {% endcomment %}
 {% endblock content %}

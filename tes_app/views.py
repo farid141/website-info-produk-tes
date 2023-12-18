@@ -29,14 +29,14 @@ def update_produk(request, pk):
     produk=Produk.objects.get(id_produk=pk)
     form=produk_form(request.POST or None, instance=produk, initial={'kategori_id': produk.kategori, 'status_id': produk.status})
 
-    # ketika valid, maka dianggap submit update
-    if form.is_valid():
-        form.save()
-        messages.success(request, "produk berhasil diupdate")
-        return redirect('produk')
-    # jika tidak valid, arahkan ke halaman edit
-    else:
-        return render(request, 'update_produk.html', {'form': form})
+    # # ketika valid, maka dianggap submit update
+    # if form.is_valid():
+    #     form.save()
+    #     messages.success(request, "produk berhasil diupdate")
+    #     return redirect('produk')
+    # # jika tidak valid, arahkan ke halaman edit
+    # else:
+    return render(request, 'update_produk.html', {'form': form, 'produk_id':pk})
 
 def produk_bisa_dijual(request):
     produk=Produk.objects.filter(status_id=1)

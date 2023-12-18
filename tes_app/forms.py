@@ -10,7 +10,8 @@ class produk_form(forms.ModelForm):
     
     class Meta:
         model= Produk
-        fields=('id_produk', 'nama_produk', 'harga', 'kategori', 'status')
+        # fields=('id_produk', 'nama_produk', 'harga', 'kategori', 'status')
+        fields= '__all__'
     
     # terpanggil otomatis untuk validasi harga
     def clean_harga(self):
